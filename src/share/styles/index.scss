@@ -1,1 +1,19 @@
 @import '~bootstrap/scss/bootstrap';
+@import './pages/index.scss';
+@import './ui/ui.scss';
+@import './widgets/widgets.scss';
+
+body {
+    min-width: 320px;
+    scroll-behavior: smooth;
+    margin: 0;
+    height: 100svh;
+
+    #root {
+        height: 100%;
+
+        .main {
+            height: 100%;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+.filter {
+    margin-bottom: 20px;
+
+    .filter__group {
+        display: flex;
+        flex-wrap: row wrap;
+        gap: 15px;
+        justify-content: space-between;
+        
+        .filter__input {
+            width: 35%;
+        }
+    }
+}

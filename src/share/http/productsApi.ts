@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+
 import CryptoJS from 'crypto-js'
-import { generateTimeToPass, prepareIds } from '../../features/func'
+import { generateTimeToPass } from '../../features/func'
 
 const URL = process.env.REACT_APP_PUBLIC_API_URL
 const pass = 'Valantis'

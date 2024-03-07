@@ -5,24 +5,31 @@ import { IProduct } from "../../types";
 
 interface IInitialState {
     products: IProduct[]
+    searchBrand: string
+    searchName: string
+    searchPrice: string
     isLoading: boolean
-    isErrorProducts: unknown
+    isErrorProducts: string | null | undefined
 }
 
 const initialState: IInitialState = {
     products: [],
+    searchBrand: '',
+    searchName: '',
+    searchPrice: '',
     isLoading: false,
     isErrorProducts: null
 }
 
-export const fetchingProducts = createAsyncThunk(
+export const fetchingProducts = createAsyncThunk<IProduct[], any, {rejectValue: string}>(
     PRODUCTS,
     async function (ids: string[], {rejectWithValue}) {
         try {
-            const respons = await productsApiItems(ids);
-            return respons.data.result
+            const response = await productsApiItems(ids);
+            return response.data.result
         } catch (e) {
-            return rejectWithValue('No user found');
+            console.log(e)
+            return rejectWithValue('Ммм, скорее всего сервер на перекуре');
         }
     } 
  )
@@ -31,7 +38,17 @@ const productsSlice = createSlice({
     name: PRODUCTS,
     initialState: initialState,
     reducers: {
-        
+        productsSearchBrand: (state, action) => {
+            state.searchBrand = action.payload
+        },
+
+        productsSearchName: (state, action) => {
+            state.searchBrand = action.payload
+        },
+
+        productsSearchPrice: (state, action) => {
+            state.searchBrand = action.payload
+        }
     },
     extraReducers(builder) {
         builder.addCase(fetchingProducts.pending, (state) => {
@@ -48,4 +65,5 @@ const productsSlice = createSlice({
     },
 })
 
-export default productsSlice.reducer
+export const { productsSearchBrand, productsSearchName, productsSearchPrice } = productsSlice.actions;
+export default productsSlice.reducer;

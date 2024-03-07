@@ -6,7 +6,7 @@ import { IProduct } from "../../types";
 interface IInitialState {
     ids: string[]
     isLoading: boolean
-    isErrorIds: unknown
+    isErrorIds: string | null | undefined
 }
 
 const initialState: IInitialState = {
@@ -15,17 +15,15 @@ const initialState: IInitialState = {
     isErrorIds: null
 }
 
-export const fetchingProductsIds = createAsyncThunk(
+export const fetchingProductsIds = createAsyncThunk<string[], undefined, {rejectValue: string}>(
    IDS,
    async function (_, {rejectWithValue}) {
         try {
-            const respons = await productsApiIds();
-            return respons.data.result
+            const response = await productsApiIds();
+            return response.data.result
         } catch (e) {
-            console.log(e)
-            return rejectWithValue('No user found');
-        }
-        
+            return rejectWithValue('Упс, сервер не отвечает, постучитесь ещё раз...');
+        }        
    } 
 )
 
@@ -45,7 +43,7 @@ const productsIdsSlice = createSlice({
             state.isLoading = false;
         })
         builder.addCase(fetchingProductsIds.rejected, (state, action) => {
-            state.isErrorIds = action.payload;
+            state.isErrorIds = action.payload; 
         })
     },
 })

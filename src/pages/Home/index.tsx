@@ -5,21 +5,19 @@ import { fetchingProductsIds } from "../../app/store/slices/productsIdsSlice"
 import { fetchingProducts } from "../../app/store/slices/productsSlice"
 
 import { Spinner } from 'react-bootstrap'
+import { Modal } from "../../share/ui/Modal"
 
 export const Home = () => {
     const { ids } = useAppSelector(state => state.productsIdsStore)
-    const { products } = useAppSelector(state => state.productsStore)
+    const { isErrorProducts } = useAppSelector(state => state.productsStore)
     const fetchingDispatch = useAppDispatch()
 
     useEffect(() => {
-        fetchingDispatch(fetchingProductsIds()) 
+        fetchingDispatch(fetchingProductsIds())
         if(ids) {
             const filteredIds = ids.filter((item, pos) => ids.indexOf(item) === pos)
                 .filter((item, pos) => ids.indexOf(item) === pos)
-            
-            setTimeout(() => {
-                fetchingDispatch(fetchingProducts(filteredIds))
-            }, 500)
+            fetchingDispatch(fetchingProducts(filteredIds))
         }
         if(ids.length === 0) {
             try {
@@ -31,13 +29,15 @@ export const Home = () => {
     }, [])
 
     return (
-        <section className="home">
-            <div className="container">
-                <div className="home__content">
-                    <h1 className="home__title">Список тоаров</h1>
-                    {<ProductsList items={products}/>}
+        <section className="home">            
+            {isErrorProducts ? <Modal errorText={isErrorProducts}/> : 
+                <div className="container">
+                    <div className="home__content">
+                        <h1 className="home__title">Список тоаров</h1>
+                        {<ProductsList/>}
+                    </div>
                 </div>
-            </div>
+            }
         </section>
     )
 }
