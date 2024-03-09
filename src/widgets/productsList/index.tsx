@@ -25,9 +25,9 @@ export const ProductsList = () => {
 
         if(searchPrice) {
             return handleSearchProductPrice(products, searchPrice)
-        } else {
-            return products
-        }
+        } 
+
+        return products
         
     })
 
