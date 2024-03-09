@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../features/hooks"
 import { Filter } from "../filter"
 import { fetchingProducts, productsSearchBrand, productsSearchName, productsSearchPrice } from "../../app/store/slices/productsSlice"
 import { MyButton } from "../../share/ui/MyButton"
+import { handleSearchProductBrand, handleSearchProductName, handleSearchProductPrice } from "../../features/func"
 
 
 export const ProductsList = () => {
@@ -13,10 +14,18 @@ export const ProductsList = () => {
     const [valuePrice, setValuePrice] = useState<string>('')
 
     const productsList = useAppSelector(state => {
-        const { products, searchBrand } = state.productsStore
-        if(!searchBrand) return products
+        const { products, searchBrand, searchName, searchPrice } = state.productsStore
+        if(searchBrand) { 
+           return handleSearchProductBrand(products, searchBrand)
+        }
 
-        return products.filter((product) => product.brand?.includes(searchBrand))
+        if (searchName) {
+            return handleSearchProductName(products, searchName)
+        } 
+
+        if(searchPrice) {
+            return handleSearchProductPrice(products, searchPrice)
+        }
     })
 
     const { ids } = useAppSelector(state => state.productsIdsStore)
@@ -46,23 +55,7 @@ export const ProductsList = () => {
         setValuePrice(value)
         dispatch(productsSearchPrice(value))
     }
-
-    if(productsList.length === 0) {
-        return <div>
-            {
-                productsList.length === 0 && 
-                <div>
-                    <p>Данные почему-то не пришли...</p>
-                    <MyButton
-                        className="products__lest-reload"
-                        handleClick={fetchProducts}
-                        text="Повторить запрос"
-                    />
-                </div>
-            }
-            </div>
-    }
-
+    
     return (
         <>
             <Filter
@@ -76,8 +69,19 @@ export const ProductsList = () => {
             <ul className="products__list">
                 {productsList ? productsList.map((product: IProduct) => {
                     return <ProductsItem product={product} key={product.id}/>
-                }) : null}
+                }) : <></>
+                }
             </ul>
         </>
     )
 }
+
+
+{/* <div>
+                        <p>Данные почему-то не пришли...</p>
+                        <MyButton
+                            className="products__lest-reload"
+                            handleClick={fetchProducts}
+                            text="Повторить запрос"
+                        />
+                    </div> */}

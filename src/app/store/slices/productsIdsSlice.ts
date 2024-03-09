@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { PRODUCTS, IDS } from "../../../features/constants";
-import { productsApiIds, productsApiItems } from "../../../share/http/productsApi";
-import { IProduct } from "../../types";
+import { IDS } from "../../../features/constants";
+import { productsApiIds } from "../../../share/http/productsApi";
 
 interface IInitialState {
     ids: string[]
