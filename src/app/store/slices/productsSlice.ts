@@ -3,7 +3,7 @@ import { PRODUCTS } from "../../../features/constants";
 import { productsApiItems } from "../../../share/http/productsApi";
 import { IProduct } from "../../types";
 
-interface IInitialState {
+export interface IInitialState {
     products: IProduct[]
     searchBrand: string
     searchName: string
@@ -43,11 +43,11 @@ const productsSlice = createSlice({
         },
 
         productsSearchName: (state, action) => {
-            state.searchBrand = action.payload
+            state.searchName = action.payload
         },
 
         productsSearchPrice: (state, action) => {
-            state.searchBrand = action.payload
+            state.searchPrice = action.payload
         }
     },
     extraReducers(builder) {

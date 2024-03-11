@@ -3,8 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../features/hooks"
 import { ProductsList } from "../../widgets/productsList"
 import { fetchingProductsIds } from "../../app/store/slices/productsIdsSlice"
 import { fetchingProducts } from "../../app/store/slices/productsSlice"
-
-import { Spinner } from 'react-bootstrap'
 import { Modal } from "../../share/ui/Modal"
 
 export const Home = () => {
@@ -14,11 +12,11 @@ export const Home = () => {
 
     useEffect(() => {
         fetchingDispatch(fetchingProductsIds())
-        if(ids) {
-            const filteredIds = ids.filter((item, pos) => ids.indexOf(item) === pos)
-                .filter((item, pos) => ids.indexOf(item) === pos)
+        if(ids) {            
+            const filteredIds = new Set(ids)            
             fetchingDispatch(fetchingProducts(filteredIds))
         }
+
         if(ids.length === 0) {
             try {
                 fetchingDispatch(fetchingProductsIds()) 
@@ -26,7 +24,7 @@ export const Home = () => {
                 console.log(e)
             }
         }
-    }, [])
+    }, [fetchingDispatch])
 
     return (
         <section className="home">            

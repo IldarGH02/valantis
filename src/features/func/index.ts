@@ -10,28 +10,25 @@ export const prepareIds = (ids: string[]) => {
 }
 
 export const handleSearchProductBrand = (arr: IProduct[], value: string) => {
-    const filterProducts = arr.filter((product) => {
-        const filterBrand = product.brand?.includes(value)
-
-        return filterBrand
-    })
-    return filterProducts
+    if(value) {
+        return arr.filter((product) => { return product.brand?.toLowerCase().includes(value) })
+    } else {
+        return arr
+    }    
 }
 
 export const handleSearchProductName = (arr: IProduct[], value: string) => {
-    const filterProducts = arr.filter((product) => {
-        const filterName = product.product.includes(value)
-
-        return filterName
-    })
-    return filterProducts
+    if(value) {
+        return arr.filter((product) => { return product.product.toLowerCase().includes(value) })
+    } else {
+        return arr
+    }    
 }
 
 export const handleSearchProductPrice = (arr: IProduct[], value: string) => {
-    const filterProducts = arr.filter((product) => {
-        const filterPrice = String(product.price).includes(value)
-
-        return filterPrice
-    })
-    return filterProducts
+    if(value) {
+        return arr.filter((product) => { return product.price === +value })
+    } else {
+        return arr
+    }
 }
