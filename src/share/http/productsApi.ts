@@ -28,7 +28,7 @@ export const productsApiIds = async (): Promise<AxiosResponse> => {
     return axios.request(options)
 }
 
-export const productsApiItems = async (ids: string[]): Promise<AxiosResponse> => {    
+export const productsApiItems = async (ids: string[]): Promise<AxiosResponse> => {
     const options: AxiosRequestConfig = {
         method: 'POST',
         url: `${URL}`,

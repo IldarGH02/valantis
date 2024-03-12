@@ -19,15 +19,16 @@ export const handleSearchProductBrand = (arr: IProduct[], value: string) => {
 
 export const handleSearchProductName = (arr: IProduct[], value: string) => {
     if(value) {
-        return arr.filter((product) => { return product.product.toLowerCase().includes(value) })
+        return arr.map((product) => {return product.product})
+            .filter((item) => item?.toLocaleLowerCase().includes(value)).flat()        
     } else {
         return arr
     }    
 }
 
 export const handleSearchProductPrice = (arr: IProduct[], value: string) => {
-    if(value) {
-        return arr.filter((product) => { return product.price === +value })
+    if(value) {        
+        return arr.map((product) => {return product.price}).filter((price) => price?.toString().includes(value)).flat()
     } else {
         return arr
     }

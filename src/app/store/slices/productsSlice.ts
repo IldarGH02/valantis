@@ -50,6 +50,7 @@ const productsSlice = createSlice({
             state.searchPrice = action.payload
         }
     },
+    
     extraReducers(builder) {
         builder.addCase(fetchingProducts.pending, (state) => {
             state.isLoading = true;

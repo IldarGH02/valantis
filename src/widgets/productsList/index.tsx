@@ -26,8 +26,8 @@ export const ProductsList = () => {
         return (
             handleSearchProductBrand(filtered, searchBrand) ||
             handleSearchProductName(filtered, searchName) ||
-            handleSearchProductPrice(filtered, searchPrice)
-        )
+            handleSearchProductPrice(filtered, searchPrice) 
+        )        
     })  
 
     const handleChangeBrand = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +47,7 @@ export const ProductsList = () => {
         setValuePrice(value)
         dispatch(productsSearchPrice(value))
     }
-    
+
     return (
         <>
             <Filter
